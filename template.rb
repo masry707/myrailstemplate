@@ -21,8 +21,6 @@ create_devise_model if yes?('Do you want to create devise model now?')
 
 def create_devise_model	
 	devise_model = ask('What is the name of your devise model?')
-	puts 'generating devise model...'
 	generate(:devise, devise_model)
-	puts 'running db:migrate...'
 	rake 'db:migrate'
 end
