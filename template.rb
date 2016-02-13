@@ -5,15 +5,17 @@ layout_choice = ask('What layout do you want to use \'Bootstrap\' or \'Foundatio
 case layout_choice
 when /bootstrap/i
 	gem 'twitter-bootstrap-rails'
-	run 'bundle install'
-	generate 'bootstrap:install static'
 when /foundation/i
 	gem 'foundation-rails'
-	run 'bundle install'
-	generate 'foundation:install'
 end
 
+run 'bundle install'
+
 generate 'devise:install'
+
+generate 'bootstrap:install static' if !!(layout_choice =~ /bootstrap/i)
+
+generate 'foundation:install' if !!(layout_choice =~ /foundation/i)
 
 create_devise_model if yes?('Do you want to create devise model now?')
 
