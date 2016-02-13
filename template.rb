@@ -1,21 +1,21 @@
-puts 'add gems...'
-gem 'devise'
-gem "twitter-bootstrap-rails"
+gem 'devise' if yes?('Do you want to add \'devise\' gem?')
 
-# puts 'run bundle install...'
-run 'bundle install'
+layout_choice = ask('What layout do you want to use \'Bootstrap\' or \'Foundation\'?')
 
-# puts 'installing bootstrap...'
-generate 'bootstrap:install static' if yes?('Do you want to install \'twitter-bootstrap-rails\' gem?')
-# puts 'installing devise...'
-install_devise = yes?('Do you want to install \'devise\' gem?')
-generate 'devise:install' if install_devise
+case layout_choice
+when /bootstrap/i
+	gem 'twitter-bootstrap-rails'
+	run 'bundle install'
+	generate 'bootstrap:install static'
+when /foundation/i
+	gem 'foundation-rails'
+	run 'bundle install'
+	generate 'foundation:install'
+end
 
-# route "root to: 'devise:sessions#new'"
+generate 'devise:install'
 
-create_devise_model if install_devise and yes?('Do you want to create devise model now?')
-
-puts 'finished...'
+create_devise_model if yes?('Do you want to create devise model now?')
 
 def create_devise_model	
 	devise_model = ask('What is the name of your devise model?')
