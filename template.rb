@@ -9,7 +9,7 @@ when /foundation/i
 	gem 'foundation-rails'
 end
 
-run 'bundle install'
+run_bundle
 
 generate 'devise:install'
 
